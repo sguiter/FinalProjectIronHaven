@@ -1,0 +1,18 @@
+﻿namespace FinalProjectIronHaven;
+
+public class Member
+{
+    private static int autoIncrement;
+    public int Id { get; set; }
+    public string Username { get; set; }
+    public string Password { get; set; }
+    public string FirstName { get; set; }
+    public string LastName { get; set; }
+
+    public Member()
+    {
+        autoIncrement++;
+        Id = autoIncrement;
+    }
+
+}
