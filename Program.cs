@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.Design;
+using System.Net.Security;
 
 namespace FinalProjectIronHaven;
 
@@ -9,17 +10,18 @@ class Program
         private static List<Visit> visits;
         private static List<MembershipPlan> plans;
         private static List<Staff> staff; 
-        private static Member aunthenticatedMember;
+        private static Member authenticatedMember;
 
         static void Main(string[] args)
         {
             Console.WriteLine("Welcome to Iron Haven Gym");
             Initialize();
             Menu();
+            MemberMenu();
             
         }
 
-        static void initialize()
+        static void Initialize()
         {
             var c1 = new Member
             {
@@ -97,5 +99,83 @@ class Program
 
     }
 
+    static void LoginMenu()
+    {
+        if(authenticatedMember == null)
+        {
+            System.Console.Write("Enter Username: ");
+            string username = Console.ReadLine();
+            System.Console.Write("Enter Password: ");
+            string password = Console.ReadLine();
 
+            authenticatedMember = members.Authenticate(username, password);
+
+            if (authenticatedMember != null)
+            {
+                System.Console.WriteLine("Welcome {aunthenticatedMember.FirstName}");
+                MemberMenu();
+            }
+            else
+            {
+                System.Console.WriteLine("Invalid Username or Password");
+            }
+        }
+    }
+
+    static void RegisterMenu()
+    {
+        System.Console.Write("Enter First Name: ");
+        string firstName = Console.ReadLine();
+        System.Console.Write("Enter Last Name: ");
+        string lastName = Console.ReadLine();
+        System.Console.Write("Enter Username: ");
+        string username = Console.ReadLine();
+        System.Console.Write("Enter Password: ");
+        string password = Console.ReadLine();
+        System.Console.Write("Enter Email: ");
+        string email = Console.ReadLine();
+
+        var member = new Member
+        {
+            FirstName = firstName,
+            LastName = lastName,
+            Username = username,
+            Password = password,
+            Email = email
+        };
+
+        members.Add(member);
+        System.Console.WriteLine("Member Registered");
+    }
+
+    static void MemberMenu()
+    {
+        bool done = false;
+
+        while (!done)
+        {
+            System.Console.WriteLine("Options: View Profile: 1, View Plans: 2, View Visits: 3 Logout: 4");
+            System.Console.Write("Enter Option: ");
+            string option = Console.ReadLine();
+
+            switch (option)
+            {
+                case "1":
+                    System.Console.WriteLine(authenticatedMember);
+                    break;
+                case "2":
+                    System.Console.WriteLine(Plans);
+                    break;
+                case "3":
+                    System.Console.WriteLine(visits);
+                    break;
+                case "4":
+                    done = true;
+                    break;
+                default:
+                    System.Console.WriteLine("Invalid Option");
+                    break;
+            }
+        }
+    }
 }
