@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.Design;
 using System.Net.Security;
+using System.Security.Cryptography;
 
 namespace FinalProjectIronHaven;
 
@@ -8,8 +9,11 @@ class Program
 {
     private static Members members;
     private static List<Visit> visits;
+    private static List<MemberVisit> memberVisit;
+
      private static List<MembershipPlan> plans;
      private static List<Staff> staff; 
+     private static List<Member> member; 
      private static Member authenticatedMember;
 
      static void Main(string[] args)
@@ -17,7 +21,7 @@ class Program
         Console.WriteLine("Welcome to Iron Haven Gym");
         Initialize();
         Menu();
-        MemberMenu();
+        //MemberMenu();
             
      }
 
@@ -28,7 +32,7 @@ class Program
             FirstName = "John",
             LastName = "Doe",
             Username = "johndoe",
-            Password = "1234",
+            Password = "password",
         };
 
         var c2 = new Member
@@ -36,7 +40,7 @@ class Program
             FirstName = "Jane",
             LastName = "Doe",
             Username = "janedoe",
-            Password = "5678",
+            Password = "password",
         };
 
         var s1 = new Staff
@@ -44,7 +48,7 @@ class Program
             FirstName = "Ben",
             LastName = "Alban",
             Username = "johndoe",
-            Password = "word",
+            Password = "password",
             Role = "Trainer",
             HireDate = DateTime.Now
         };
@@ -54,7 +58,7 @@ class Program
             FirstName = "Chris",
             LastName = "MAgnus",
             Username = "janedoe",
-            Password = "want",
+            Password = "password",
             Role = "Manager",
             HireDate = DateTime.Now
         };
@@ -67,7 +71,28 @@ class Program
         var p2 = new MembershipPlan("Standard", 30, 2);
         var p3 = new MembershipPlan("Premium", 40, 3);
 
-        members = new Members();
+        var mv1 = new MemberVisit(c1, v1);
+        var mv2 = new MemberVisit(c1, v2);
+        var mv3 = new MemberVisit(c2, v3);
+
+        memberVisit = new List<MemberVisit>();
+        memberVisit.Add(mv1);
+        memberVisit.Add(mv2);
+        memberVisit.Add(mv3);
+
+        visits = new List<Visit>();
+        visits.Add(v1);
+        visits.Add(v2);
+        visits.Add(v3);
+
+        staff = new List<Staff>();
+        staff.Add(s1);
+        staff.Add(s2);
+
+        member = new List<Member>();
+        member.Add(c1);
+        member.Add(c2);
+
 
     }
         
@@ -113,7 +138,6 @@ class Program
             if (authenticatedMember != null)
             {
                 System.Console.WriteLine($"Welcome {authenticatedMember.FirstName}");
-                MemberMenu();
             }
             else
             {
@@ -141,6 +165,7 @@ class Program
             LastName = lastName,
             Username = username,
             Password = password,
+            Email = email
         };
 
         members.memberList.Add(member);
@@ -163,7 +188,7 @@ class Program
                     System.Console.WriteLine(authenticatedMember);
                     break;
                 case "2":
-                    System.Console.WriteLine(plans);
+                    System.Console.WriteLine("hello");
                     break;
                 case "3":
                     System.Console.WriteLine(visits);
@@ -175,6 +200,7 @@ class Program
                     System.Console.WriteLine("Invalid Option");
                     break;
             }
+       
         }
     }
     
