@@ -67,6 +67,8 @@ class Program
         var p2 = new MembershipPlan("Standard", 30, 2);
         var p3 = new MembershipPlan("Premium", 40, 3);
 
+        members = new Members();
+
     }
         
     static void Menu()
@@ -173,7 +175,6 @@ class Program
                     System.Console.WriteLine("Invalid Option");
                     break;
             }
-       
         }
     }
     
