@@ -21,7 +21,7 @@ class Program
         Console.WriteLine("Welcome to Iron Haven Gym");
         Initialize();
         Menu();
-        //MemberMenu();
+        MemberMenu();
             
      }
 
@@ -32,7 +32,7 @@ class Program
             FirstName = "John",
             LastName = "Doe",
             Username = "johndoe",
-            Password = "password",
+            Password = "1234",
         };
 
         var c2 = new Member
@@ -40,15 +40,15 @@ class Program
             FirstName = "Jane",
             LastName = "Doe",
             Username = "janedoe",
-            Password = "password",
+            Password = "5678",
         };
 
         var s1 = new Staff
         {
             FirstName = "Ben",
             LastName = "Alban",
-            Username = "johndoe",
-            Password = "password",
+            Username = "benalban",
+            Password = "pass",
             Role = "Trainer",
             HireDate = DateTime.Now
         };
@@ -56,9 +56,9 @@ class Program
         var s2 = new Staff
         {
             FirstName = "Chris",
-            LastName = "MAgnus",
-            Username = "janedoe",
-            Password = "password",
+            LastName = "Magnus",
+            Username = "chrismags",
+            Password = "word",
             Role = "Manager",
             HireDate = DateTime.Now
         };
@@ -89,9 +89,14 @@ class Program
         staff.Add(s1);
         staff.Add(s2);
 
-        member = new List<Member>();
-        member.Add(c1);
-        member.Add(c2);
+        members = new Members();
+        members.memberList.Add(c1);
+        members.memberList.Add(c2);
+
+        plans = new List<MembershipPlan>();
+        plans.Add(p1);
+        plans.Add(p2);
+        plans.Add(p3);
 
 
     }
@@ -138,6 +143,7 @@ class Program
             if (authenticatedMember != null)
             {
                 System.Console.WriteLine($"Welcome {authenticatedMember.FirstName}");
+                MemberMenu();
             }
             else
             {
@@ -165,7 +171,6 @@ class Program
             LastName = lastName,
             Username = username,
             Password = password,
-            Email = email
         };
 
         members.memberList.Add(member);
@@ -188,7 +193,7 @@ class Program
                     System.Console.WriteLine(authenticatedMember);
                     break;
                 case "2":
-                    System.Console.WriteLine("hello");
+                    System.Console.WriteLine(plans);
                     break;
                 case "3":
                     System.Console.WriteLine(visits);
@@ -203,7 +208,38 @@ class Program
        
         }
     }
-    
+
+    static void StaffMenu()
+    {
+        bool done = false;
+
+        while (!done)
+        {
+            System.Console.WriteLine("Options: View Profile: 1, View Members: 2, View Visits: 3, Logout: 4");
+            System.Console.Write("Enter Option: ");
+            string option = Console.ReadLine();
+
+            switch (option)
+            {
+                case "1":
+                    System.Console.WriteLine(authenticatedMember);
+                    break;
+                case "2":
+                    System.Console.WriteLine(member);
+                    break;
+                case "3":
+                    System.Console.WriteLine(visits);
+                    break;
+                case "4":
+                    Console.WriteLine("You have been logged out");
+                    done = true;
+                    break;
+                default:
+                    System.Console.WriteLine("Invalid Option");
+                    break;
+            }
+        }
+    }
 }
     
 
