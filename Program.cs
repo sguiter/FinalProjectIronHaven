@@ -17,7 +17,7 @@ class Program
         Console.WriteLine("Welcome to Iron Haven Gym");
         Initialize();
         Menu();
-         MemberMenu();
+        MemberMenu();
             
      }
 
@@ -28,7 +28,7 @@ class Program
             FirstName = "John",
             LastName = "Doe",
             Username = "johndoe",
-            Password = "password",
+            Password = "1234",
         };
 
         var c2 = new Member
@@ -36,7 +36,7 @@ class Program
             FirstName = "Jane",
             LastName = "Doe",
             Username = "janedoe",
-            Password = "password",
+            Password = "5678",
         };
 
         var s1 = new Staff
@@ -44,7 +44,7 @@ class Program
             FirstName = "Ben",
             LastName = "Alban",
             Username = "johndoe",
-            Password = "password",
+            Password = "word",
             Role = "Trainer",
             HireDate = DateTime.Now
         };
@@ -54,7 +54,7 @@ class Program
             FirstName = "Chris",
             LastName = "MAgnus",
             Username = "janedoe",
-            Password = "password",
+            Password = "want",
             Role = "Manager",
             HireDate = DateTime.Now
         };
@@ -110,7 +110,7 @@ class Program
 
             if (authenticatedMember != null)
             {
-                System.Console.WriteLine("Welcome {aunthenticatedMember.FirstName}");
+                System.Console.WriteLine($"Welcome {authenticatedMember.FirstName}");
                 MemberMenu();
             }
             else
@@ -139,7 +139,6 @@ class Program
             LastName = lastName,
             Username = username,
             Password = password,
-            Email = email
         };
 
         members.memberList.Add(member);
@@ -162,7 +161,7 @@ class Program
                     System.Console.WriteLine(authenticatedMember);
                     break;
                 case "2":
-                    System.Console.WriteLine("hello");
+                    System.Console.WriteLine(plans);
                     break;
                 case "3":
                     System.Console.WriteLine(visits);
