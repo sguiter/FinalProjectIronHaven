@@ -10,7 +10,6 @@ class Program
     private static Members members;
     private static List<Visit> visits;
     private static List<MemberVisit> memberVisit;
-
      private static List<MembershipPlan> plans;
      private static List<Staff> staff; 
      private static List<Member> member; 
@@ -190,13 +189,13 @@ class Program
             switch (option)
             {
                 case "1":
-                    System.Console.WriteLine(authenticatedMember);
+                    DisplayMember();
                     break;
                 case "2":
-                    System.Console.WriteLine(plans);
+                    DisplayPlans();
                     break;
                 case "3":
-                    System.Console.WriteLine(visits);
+                    VisitsMenu();
                     break;
                 case "4":
                     done = true;
@@ -206,6 +205,43 @@ class Program
                     break;
             }
        
+        }
+    }
+
+    static void DisplayMember()
+    {
+        Console.WriteLine(authenticatedMember);
+    }
+
+    static void DisplayPlans()
+    {
+        foreach(var plan in plans)
+        {
+            Console.WriteLine(plan);
+        }
+    }
+
+
+    static void VisitsMenu()
+    {
+        if (authenticatedMember == null)
+        {
+            Console.WriteLine("Please log in first!");
+            return;
+        }
+
+        var visitList = memberVisit.Where(o => o.m == authenticatedMember);
+
+        if(visitList.Count() == 0)
+        {
+            Console.WriteLine("0 visits found.");
+        }
+        else
+        {
+            foreach(var visit in visitList)
+            {
+                Console.WriteLine(visit.v);
+            }
         }
     }
 
