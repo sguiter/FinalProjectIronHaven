@@ -31,7 +31,7 @@ class Program
             FirstName = "John",
             LastName = "Doe",
             Username = "johndoe",
-            Password = "1234",
+            Password = "12345",
         };
 
         var c2 = new Member
