@@ -9,7 +9,7 @@ class Program
 {
     private static Members members;
     private static List<Visit> visits;
-    private static List<MemberVisit> memberVisit;
+    private static List<MemberVisit> memberVisits;
      private static List<MembershipPlan> plans;
      private static List<Staff> staff; 
      private static List<Member> member; 
@@ -20,7 +20,7 @@ class Program
         Console.WriteLine("Welcome to Iron Haven Gym");
         Initialize();
         Menu();
-        MemberMenu();
+        //MemberMenu();
             
      }
 
@@ -66,18 +66,18 @@ class Program
         var v2 = new Visit();
         var v3 = new Visit();
 
-        var p1 = new MembershipPlan("Basic", 20, 1);
-        var p2 = new MembershipPlan("Standard", 30, 2);
-        var p3 = new MembershipPlan("Premium", 40, 3);
-
         var mv1 = new MemberVisit(c1, v1);
         var mv2 = new MemberVisit(c1, v2);
         var mv3 = new MemberVisit(c2, v3);
 
-        memberVisit = new List<MemberVisit>();
-        memberVisit.Add(mv1);
-        memberVisit.Add(mv2);
-        memberVisit.Add(mv3);
+        members = new Members();
+        members.memberList.Add(c1);
+        members.memberList.Add(c2);
+
+        memberVisits = new List<MemberVisit>();
+        memberVisits.Add(mv1);
+        memberVisits.Add(mv2);
+        memberVisits.Add(mv3);
 
         visits = new List<Visit>();
         visits.Add(v1);
@@ -88,9 +88,9 @@ class Program
         staff.Add(s1);
         staff.Add(s2);
 
-        members = new Members();
-        members.memberList.Add(c1);
-        members.memberList.Add(c2);
+        var p1 = new MembershipPlan("Basic", 20, 1);
+        var p2 = new MembershipPlan("Standard", 30, 2);
+        var p3 = new MembershipPlan("Premium", 40, 3);
 
         plans = new List<MembershipPlan>();
         plans.Add(p1);
@@ -106,7 +106,7 @@ class Program
 
         while (!done)
         {
-            System.Console.WriteLine("Options: Login: 1, Register: 2, Exit: 3");
+            System.Console.WriteLine("Options: Login: 1, Register: 2, VisitsMenu: 3, Logout 4:, View Plans 5:, Exit: q");
             System.Console.Write("Enter Option: ");
             string option = Console.ReadLine();
 
@@ -119,6 +119,15 @@ class Program
                     RegisterMenu();
                     break;
                 case "3":
+                    VisitsMenu();
+                    break;
+                case "4":
+                    LogOutMenu();
+                    break;
+                case "5":
+                    DisplayPlans();
+                    break;
+                case "q":
                     done = true;
                     break;
                 default:
@@ -142,7 +151,6 @@ class Program
             if (authenticatedMember != null)
             {
                 System.Console.WriteLine($"Welcome {authenticatedMember.FirstName}");
-                MemberMenu();
             }
             else
             {
@@ -175,14 +183,51 @@ class Program
         members.memberList.Add(member);
         System.Console.WriteLine("Member Registered");
     }
+        static void VisitsMenu()
+    {
+        if (authenticatedMember == null)
+        {
+            Console.WriteLine("Please log in first!");
+            return;
+        }
 
-    static void MemberMenu()
+        var visitList = memberVisits.Where(o => o.m.Username == authenticatedMember.Username);
+
+        if(visitList.Count() == 0)
+        {
+            Console.WriteLine("No Visits Found");
+            return;
+        }
+        else
+        {
+            foreach(var visit in visitList)
+            {
+                Console.WriteLine(visit.v.dateTime);
+            }
+        }
+    }
+
+    static void LogOutMenu()
+    {
+        authenticatedMember = null;
+        Console.WriteLine("You have been logged out!");
+    }
+
+    static void DisplayPlans()
+    {
+        foreach(var plan in plans)
+        {
+            Console.WriteLine($"{plan.PlanName} - {plan.Price} - {plan.features}");
+        }
+    }
+
+    /* static void MemberMenu()
     {
         bool done = false;
 
         while (!done)
         {
-            System.Console.WriteLine("Options: View Profile: 1, View Plans: 2, View Visits: 3 Logout: 4");
+            System.Console.WriteLine("Options: View Profile: 1, View Plans: 2, Logout: 3");
             System.Console.Write("Enter Option: ");
             string option = Console.ReadLine();
 
@@ -195,9 +240,7 @@ class Program
                     DisplayPlans();
                     break;
                 case "3":
-                    VisitsMenu();
-                    break;
-                case "4":
+                    Console.WriteLine("You have been logged out");
                     done = true;
                     break;
                 default:
@@ -218,30 +261,6 @@ class Program
         foreach(var plan in plans)
         {
             Console.WriteLine(plan);
-        }
-    }
-
-
-    static void VisitsMenu()
-    {
-        if (authenticatedMember == null)
-        {
-            Console.WriteLine("Please log in first!");
-            return;
-        }
-
-        var visitList = memberVisit.Where(o => o.m == authenticatedMember);
-
-        if(visitList.Count() == 0)
-        {
-            Console.WriteLine("0 visits found.");
-        }
-        else
-        {
-            foreach(var visit in visitList)
-            {
-                Console.WriteLine(visit.v);
-            }
         }
     }
 
@@ -276,6 +295,7 @@ class Program
             }
         }
     }
+    */
 }
     
 
